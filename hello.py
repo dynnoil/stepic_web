@@ -1,5 +1,6 @@
 from cgi import parse_qs
 
+
 def application(environ, start_response):
     qs = parse_qs(environ['QUERY_STRING'], keep_blank_values=True)
     data = ''

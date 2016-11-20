@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -30,12 +31,26 @@ class Question(models.Model):
 	likes = models.ManyToManyField(User, related_name = 'question_likes')
 	objects = QuestionManager()
 
+	def __unicode__(self):
+		return self.title
+
+	def get_url(self):
+		return reverse('question', kwargs = {'id': self.id})
+
+class AnswerManager(models.Manager):
+	def get_question(self, question):
+		qs = self.get_queryset()
+		return qs.filter(question__id = question.id)
+
 ##
 # Answer
 ##
 class Answer(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField(blank = True)
-	question = models.OneToOneField(Question, on_delete = models.CASCADE)
+	question = models.ForeignKey(Question, on_delete = models.CASCADE)
 	author = models.ForeignKey(User, on_delete = models.CASCADE)
+	objects = AnswerManager()
 
+	def __unicode__(self):
+		return self.text
