@@ -14,10 +14,10 @@ from django.core.urlresolvers import reverse
 class QuestionManager(models.Manager):
 	def new(self):
 		qs = self.get_queryset()
-		return qs.order_by('-added_at')
+		return qs.order_by('-id')
 	def popular(self):
 		qs = self.get_queryset()
-		return qs.order_by('rating')		
+		return qs.order_by('-rating')		
 
 ##
 # Question
