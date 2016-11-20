@@ -1,9 +1,9 @@
 CONFIG = {
-    'mode': 'django',
+    'mode': 'wsgi',
     'environment': {
         'PYTHONPATH': '/usr/bin/python',
     },
-    'working_dir': '/home/leonid/web/ask',
+    'working_dir': '/home/box/web/ask',
     'user': 'www-data',
     'group': 'www-data',
     'args': (
